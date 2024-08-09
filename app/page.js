@@ -40,10 +40,10 @@ export default function Home() {
   const messagesEndRef = useRef(null);
 
   const gptModel = ['GPT-3.5', 'GPT-4'];
-  const options = ['Option 1', 'Option 2'];
+  const options = ['Chat Here'];
   const template = [
-    { title: 'Template 1', prompt: 'Prompt 1' },
-    { title: 'Template 2', prompt: 'Prompt 2' },
+    { title: 'Make a Plan', prompt: 'Help me make a plan for today?' },
+    { title: 'Bake a cake', prompt: 'How can I bake a chocolate cake?' },
   ];
 
   const scrollToBottom = () => {
@@ -164,20 +164,18 @@ export default function Home() {
 
         {/* Response Box Section */}
         <form className='flex flex-col px-10 mb-2 md:px-32 join sm:flex-row' onSubmit={sendMessage}>
-          <select
-            value={selected}
-            onChange={(e) => setSelected(e.target.value)}
-            className='w-full sm:w-40 select select-bordered join-item bg-gray-800 text-white border-gray-700'>
-            <option>{options[0]}</option>
-            <option>{options[1]}</option>
-          </select>
+        <div
+            className='sm:w-40 bg-gray-800 text-white border border-gray-700 rounded-md px-3 py-2 flex-auto text-center'
 
+>
+  {options[0]}
+</div>
           <div className='flex items-stretch justify-between w-full'>
 
             {/* Textarea - Change colors here */}
             <textarea
               ref={inputRef}
-              className='w-full grow input input-bordered join-item max-h-[20rem] min-h-[3rem] bg-gray-600 text-white border-blue-700'
+              className='w-full grow input input-bordered join-item max-h-[20rem] min-h-[3rem] bg-gray-600 text-white border-gray-200'
               value={formValue}
               onKeyDown={handleKeyDown}
               onChange={(e) => setFormValue(e.target.value)}
