@@ -25,7 +25,7 @@ const SideBar = ({ handleClearChat, setShowSettings, showSettings }) => {
             </button>
           </li>
           <li>
-            <a href="https://github.com/EyuCoder/chatgpt-clone" target="_blank" rel="noopener noreferrer" className="btn btn-block btn-outline text-blue-500 border-white hover:bg-gray-800">
+            <a href="https://github.com/agugoat/chatsupport-headstarter-proj-3-" target="_blank" rel="noopener noreferrer" className="btn btn-block btn-outline text-blue-500 border-white hover:bg-gray-800">
               🌐 {/* Generic globe icon using emoji */}
               {open && <span className="ml-2">GitHub</span>}
             </a>
