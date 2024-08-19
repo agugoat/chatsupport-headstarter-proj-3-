@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { auth, provider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '../firebaseConfig';
 import { signInWithPopup } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-import Home from '../home/page'
+import Chat from '../chat/page'
 
 const SignIn = () => {
     const [authenticatedEmail, setAuthenticatedEmail] = useState();
@@ -55,12 +55,12 @@ const SignIn = () => {
 
     useEffect(() => {
         setAuthenticatedEmail(localStorage.getItem("email"));
-    }, []);
+    }, [router]);
 
     return (
         <div className="relative flex flex-col">
             {authenticatedEmail ? (
-                <Home />
+                <Chat />
             ) : (
                 <div>
                     <h1>AI Assistant App</h1>

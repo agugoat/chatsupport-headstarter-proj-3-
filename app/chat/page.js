@@ -28,7 +28,7 @@ const Thinking = () => (
   </div>
 );
 
-export default function Home() {
+export default function Chat() {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
