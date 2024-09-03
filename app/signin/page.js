@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { auth, provider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '../firebaseConfig';
 import { signInWithPopup } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-import Chat from '../chat/page'
+import Chat from '../chat/page';
 
 const SignIn = () => {
     const [authenticatedEmail, setAuthenticatedEmail] = useState();
@@ -31,7 +31,7 @@ const SignIn = () => {
                 localStorage.setItem("email", userCredential.user.email);
 
                 // Route to home page after success
-                router.push('/home');
+                router.push('/chat');
             })
             .catch((error) => {
                 console.error("Error signing in:", error);
@@ -46,7 +46,7 @@ const SignIn = () => {
                 localStorage.setItem("email", userCredential.user.email);
 
                 // Route to home page after success
-                router.push('/home');
+                router.push('/chat');
             })
             .catch((error) => {
                 console.error("Error during registering:", error);
@@ -58,33 +58,49 @@ const SignIn = () => {
     }, [router]);
 
     return (
-        <div className="relative flex flex-col">
+        <div className="flex items-center justify-center min-h-screen bg-gray-900 dark:bg-gray-950">
             {authenticatedEmail ? (
                 <Chat />
             ) : (
-                <div>
-                    <h1>AI Assistant App</h1>
-                    <form onSubmit={isRegistering ? handleEmailRegister : handleEmailSignIn}>
+                <div className="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-lg shadow-lg dark:bg-gray-900">
+                    <h1 className="text-3xl font-bold text-center text-gray-200">AI Assistant App</h1>
+                    <form 
+                        onSubmit={isRegistering ? handleEmailRegister : handleEmailSignIn}
+                        className="space-y-4"
+                    >
                         <input 
                             type="email" 
                             placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            className="w-full px-4 py-2 text-gray-200 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                         />
                         <input 
                             type="password" 
-                            placeholder="password"
+                            placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            className="w-full px-4 py-2 text-gray-200 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                         />
-                        <button type="submit">
-                            {isRegistering ? "Register" : "Sign In" } 
+                        <button 
+                            type="submit" 
+                            className="w-full px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            {isRegistering ? "Register" : "Sign In"} 
                         </button>
                     </form>
                         
-                    <button onClick={handleGoogleSignUp}>Sign in with Google</button>
+                    <button 
+                        onClick={handleGoogleSignUp} 
+                        className="w-full px-4 py-2 font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                    >
+                        Sign in with Google
+                    </button>
                     
-                    <button onClick={() => setIsRegistering(!isRegistering)}>
+                    <button 
+                        onClick={() => setIsRegistering(!isRegistering)} 
+                        className="w-full px-4 py-2 text-sm font-medium text-center text-gray-400 hover:underline dark:text-gray-300"
+                    >
                         {isRegistering ? 'Already have an account? Sign in' : 'Create an account'}
                     </button>
                 </div>
