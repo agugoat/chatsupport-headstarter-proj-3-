@@ -4,12 +4,13 @@ import { getFirestore } from "firebase/firestore"
 import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD--er9Rgg0OJfrTMlq40pk346dXoB3CEk",
-  authDomain: "chat-support-b1325.firebaseapp.com",
-  projectId: "chat-support-b1325",
-  storageBucket: "chat-support-b1325.appspot.com",
-  messagingSenderId: "358308906705",
-  appId: "1:358308906705:web:2829941754ca82b35267f0"
+  apiKey: "AIzaSyAt0Cb9wDU4ZMQBpeKYfKaTGHeP9B_fbwE",
+  authDomain: "flashcards-b571a.firebaseapp.com",
+  projectId: "flashcards-b571a",
+  storageBucket: "flashcards-b571a.appspot.com",
+  messagingSenderId: "439220971734",
+  appId: "1:439220971734:web:7b7343038645e560274177",
+  measurementId: "G-XR33GDB2Z2"
 };
 
 // Initialize Firebase
