@@ -74,7 +74,7 @@ const SignIn = () => {
                 <Chat />
             ) : (
                 <div className="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-lg shadow-lg dark:bg-gray-900">
-                    <h1 className="text-3xl font-bold text-center text-gray-200">AI Assistant App</h1>
+                    <h1 className="text-3xl font-bold text-center text-gray-200">Assistant GPT </h1>
                     <form 
                         onSubmit={isRegistering ? handleEmailRegister : handleEmailSignIn}
                         className="space-y-4"
@@ -105,8 +105,8 @@ const SignIn = () => {
                         onClick={handleGoogleSignUp} 
                         className="w-full px-4 py-2 font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
-                        Sign in with Google
-                    </button>
+                            {isRegistering ? "Register with Google" : "Sign In with Google"} 
+                            </button>
                     
                     <button 
                         onClick={() => setIsRegistering(!isRegistering)} 
