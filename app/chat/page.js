@@ -138,7 +138,7 @@ export default function Chat() {
   }
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen w-screen overflow-hidden"> {/* Use full-screen layout */}
       <SideBar handleClearChat={handleClearChat} setShowSettings={setShowSettings} showSettings={showSettings} />
 
       <main className='relative flex flex-col flex-grow p-1 overflow-hidden bg-gray-900'>
@@ -147,6 +147,7 @@ export default function Chat() {
         </p>
         
         <div className='mx-auto my-4 tabs tabs-boxed w-fit'>
+          
           <button onClick={() => setGpt(gptModel[0])} className={`${gpt === gptModel[0] && 'tab-active'} tab text-white bg-gray-800`}>
             GPT-3.5
           </button>
@@ -154,13 +155,14 @@ export default function Chat() {
             GPT-4
           </button>
         </div>
+        
 
-        <section className='flex flex-col flex-grow w-full px-4 overflow-y-scroll sm:px-10 md:px-32'>
+        <section className='flex flex-col flex-grow w-full px-4 overflow-y-scroll sm:px-10 md:px-32 lg:max-w-7xl'>
           {messages.length ? (
             messages.map((message, index) => <Message key={index} message={message} />)
           ) : (
             <div className='flex my-2'>
-              <div className='w-screen overflow-hidden'>
+              <div className='w-full overflow-hidden'>
                 <ul className='grid grid-cols-2 gap-2 mx-10'>
                   {template.map((item, index) => (
                     <li
@@ -182,16 +184,13 @@ export default function Chat() {
         </section>
 
         {/* Response Box Section */}
-        <form className='flex flex-col px-10 mb-2 md:px-32 join sm:flex-row' onSubmit={sendMessage}>
-        <div
+        <form className='flex flex-col px-10 mb-2 md:px-32 lg:px-64 join sm:flex-row' onSubmit={sendMessage}>
+          <div
             className='sm:w-40 bg-gray-800 text-white border border-gray-700 rounded-md px-3 py-2 flex-auto text-center'
-
->
-  {options[0]}
-</div>
+          >
+            {options[0]}
+          </div>
           <div className='flex items-stretch justify-between w-full'>
-
-            {/* Textarea - Change colors here */}
             <textarea
               ref={inputRef}
               className='w-full grow input input-bordered join-item max-h-[20rem] min-h-[3rem] bg-gray-600 text-white border-gray-200'
@@ -199,8 +198,6 @@ export default function Chat() {
               onKeyDown={handleKeyDown}
               onChange={(e) => setFormValue(e.target.value)}
             />
-
-            {/* Send Button - Change colors here */}
             <button type='submit' className='join-item btn bg-blue-700 text-white border-black-600 hover:bg-blue-600' disabled={!formValue}>
               Send
             </button>

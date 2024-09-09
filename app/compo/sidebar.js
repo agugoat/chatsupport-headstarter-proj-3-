@@ -1,7 +1,26 @@
 import React, { useState } from 'react';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebaseConfig'; // Ensure that the auth is correctly imported
+import { useRouter } from 'next/navigation'; // Ensure you're importing useRouter correctly
+
+
 
 const SideBar = ({ handleClearChat, setShowSettings, showSettings }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
+  const router = useRouter(); // Define router here inside the component
+
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        localStorage.removeItem("email");
+        router.push('../signin'); // Redirect to home page or login page after logout
+      })
+      .catch((error) => {
+        console.error("Error during logout:", error);
+      });
+  };
+
 
   return (
     <div className={`flex flex-col h-screen bg-black ${open ? 'w-72' : 'w-16'} shadow-md transition-all duration-300`}>
@@ -30,16 +49,21 @@ const SideBar = ({ handleClearChat, setShowSettings, showSettings }) => {
               {open && <span className="ml-2">GitHub</span>}
             </a>
           </li>
+          <li>
+            <button className="btn btn-block btn-outline text-gray-200 border-white hover:bg-gray-800" onClick={handleLogout}>
+            ✌️ {/* Generic peace sign using emoji */}
+              {open && <span className="ml-2">Logout</span>}
+            </button>
+          </li>
+
         </ul>
       </nav>
 
       <div className="p-4">
-        {/* Assuming ToggleTheme is a component you want to include */}
       </div>
 
       {showSettings && (
         <div className="p-4">
-          {/* Assuming Setting is a component you want to include */}
         </div>
       )}
     </div>

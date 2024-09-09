@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { auth, provider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '../firebaseConfig';
 import { signInWithPopup } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
+
 import { useRouter } from 'next/navigation';
 import Chat from '../chat/page';
 
@@ -10,8 +12,11 @@ const SignIn = () => {
     const [authenticatedEmail, setAuthenticatedEmail] = useState();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState(''); // Error message state
+
     const [isRegistering, setIsRegistering] = useState(false);
     const router = useRouter();
+
 
     const handleGoogleSignUp = () => {
         signInWithPopup(auth, provider).then((data) => {
@@ -19,37 +24,43 @@ const SignIn = () => {
             localStorage.setItem("email", data.user.email);
             
             // Route to home page after success
-            router.push('/home');
+            router.push('/chat');
+        })
+        .catch((error) => {
+            setErrorMessage(error.message); // Show error message to the user
         });
     };
 
+    
     const handleEmailSignIn = (e) => {
         e.preventDefault();
+        setErrorMessage(''); // Clear error message
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setAuthenticatedEmail(userCredential.user.email);
                 localStorage.setItem("email", userCredential.user.email);
 
-                // Route to home page after success
+                // Route to chat page after success
                 router.push('/chat');
             })
             .catch((error) => {
-                console.error("Error signing in:", error);
+                setErrorMessage(error.message); // Show error message to the user
             });
     };
 
     const handleEmailRegister = (e) => {
         e.preventDefault();
+        setErrorMessage(''); // Clear error message
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setAuthenticatedEmail(userCredential.user.email);
                 localStorage.setItem("email", userCredential.user.email);
 
-                // Route to home page after success
+                // Route to chat page after success
                 router.push('/chat');
             })
             .catch((error) => {
-                console.error("Error during registering:", error);
+                setErrorMessage(error.message); // Show error message to the user
             });
     };
 
@@ -63,7 +74,12 @@ const SignIn = () => {
                 <Chat />
             ) : (
                 <div className="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-lg shadow-lg dark:bg-gray-900">
-                    <h1 className="text-3xl font-bold text-center text-gray-200">AI Assistant App</h1>
+                    <h1 className="text-3xl font-bold text-center text-gray-200">Assistant GPT</h1>
+                    
+                    {errorMessage && (
+                        <p className="text-red-500 text-center">{errorMessage}</p> // Display error message
+                    )}
+
                     <form 
                         onSubmit={isRegistering ? handleEmailRegister : handleEmailSignIn}
                         className="space-y-4"
@@ -94,7 +110,7 @@ const SignIn = () => {
                         onClick={handleGoogleSignUp} 
                         className="w-full px-4 py-2 font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
-                        Sign in with Google
+                        {isRegistering ? "Register with Google" : "Sign in with Google"} 
                     </button>
                     
                     <button 
